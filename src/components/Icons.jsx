@@ -13,10 +13,10 @@ const Icons = () => {
       <Link to={"/cart"} className="cart-btn">
         <AiOutlineShoppingCart />
       </Link>
-      {/* <button className="loginBtn">
+      <Link to={"/login"} className="loginBtn">
         Login
         <FiUserPlus />
-      </button> */}
+      </Link>
       <Link to={"/register"} className="registerBtn">
         Register
         <FiUserPlus />
