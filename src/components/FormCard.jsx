@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const FormCard = ({ header, text, button }) => {
@@ -6,7 +7,9 @@ const FormCard = ({ header, text, button }) => {
     <Wrapper>
       <h2>{header}</h2>
       <p>{text}</p>
-      <button>{button}</button>
+      <button>
+        <Link to={button === "Signin" ? "/login" : "/register"}>{button}</Link>
+      </button>
     </Wrapper>
   );
 };

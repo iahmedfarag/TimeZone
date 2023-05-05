@@ -18,6 +18,8 @@ import ShopNowBtn from "./ShopNowBtn.jsx";
 import CartTotals from "./CartTotals";
 import FormCard from "./FormCard";
 import FormTemplate from "./FormTemplate";
+import ContactForm from "./ContactForm";
+import ContactMap from "./ContactMap";
 
 export {
   Features,
@@ -40,4 +42,6 @@ export {
   CartTotals,
   FormCard,
   FormTemplate,
+  ContactForm,
+  ContactMap,
 };
