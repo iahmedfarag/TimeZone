@@ -1,5 +1,6 @@
-import React, { useRef, useState } from "react";
+import React from "react";
 import links from "./../utils/links";
+import { Link } from "react-router-dom";
 
 const Links = () => {
   return (
@@ -9,7 +10,7 @@ const Links = () => {
           const { id, text, url } = link;
           return (
             <li key={id}>
-              <a href={url}>{text}</a>
+              <Link to={url}>{text}</Link>
             </li>
           );
         })}

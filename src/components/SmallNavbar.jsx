@@ -61,22 +61,6 @@ const Wrapper = styled.nav`
     align-items: center;
     justify-content: space-between;
     /* icons */
-    .icons {
-      display: flex;
-      gap: 15px;
-      button {
-        svg {
-          display: flex;
-          align-items: center;
-          font-size: 22px;
-          transition: var(--main-trans);
-
-          &:hover {
-            color: var(--main-color);
-          }
-        }
-      }
-    }
   }
   /* menu */
   .menu {

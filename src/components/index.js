@@ -9,6 +9,10 @@ import SmallNavbar from "./SmallNavbar.jsx";
 import Video from "./Video.jsx";
 import WatchOfChoice from "./WatchOfChoice.jsx";
 import Logo from "./Logo.jsx";
+import Product from "./Product";
+import Header from "./Header";
+import AddSection from "./AddSection.jsx";
+import ProductImages from "./ProductImages";
 
 export {
   Features,
@@ -22,4 +26,8 @@ export {
   WatchOfChoice,
   SmallNavbar,
   Logo,
+  Product,
+  Header,
+  AddSection,
+  ProductImages,
 };

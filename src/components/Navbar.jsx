@@ -41,22 +41,6 @@ const Wrapper = styled.nav`
       }
     }
   }
-  .icons {
-    display: flex;
-    gap: 15px;
-    button {
-      svg {
-        display: flex;
-        align-items: center;
-        font-size: 22px;
-        transition: var(--main-trans);
-
-        &:hover {
-          color: var(--main-color);
-        }
-      }
-    }
-  }
   @media (max-width: 1600px) {
     padding: 0 20px;
   }
