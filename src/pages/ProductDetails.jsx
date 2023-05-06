@@ -1,45 +1,68 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { AddSection, Header, ProductImages } from "../components";
 import styled from "styled-components";
 import { FaShippingFast } from "react-icons/fa";
 import { BiSupport } from "react-icons/bi";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
+import { Link, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getSingleProduct } from "../features/productsSlice.jsx";
 
 const ProductDetails = () => {
+  const { single_product, isLoading } = useSelector((state) => state.products);
+  const dispatch = useDispatch();
+  const params = useParams();
+  const {
+    id,
+    title,
+    description,
+    price,
+    discountPercentage,
+    rating,
+    stock,
+    brand,
+    thumbnail,
+    images,
+  } = single_product;
+  useEffect(() => {
+    dispatch(getSingleProduct(params.id));
+  }, []);
   return (
     <Wrapper>
       <Header title={"Product Details"} />
-      <section>
-        <div className="container">
-          <ProductImages />
-          <div className="info">
-            <h2 className="title">Thermo Ball Etip Gloves</h2>
-            <h4 className="rating">
-              <AiFillStar />
-              <AiFillStar />
-              <AiFillStar />
-              <AiOutlineStar />
-              <AiOutlineStar />
-            </h4>
-            <p className="description">
-              An apple mobile which is nothing like apple
-            </p>
-            <div className="price">
-              <h4 className="oldPrice">$229.99</h4>
-              <h4 className="newPrice">$129.99</h4>
+      {isLoading ? (
+        <h1>Loading...</h1>
+      ) : (
+        <section>
+          <div className="container">
+            <ProductImages images={images} />
+            <div className="info">
+              <h2 className="title">{title}</h2>
+              <h4 className="rating">
+                <AiFillStar />
+                <AiFillStar />
+                <AiFillStar />
+                <AiOutlineStar />
+                <AiOutlineStar />
+              </h4>
+              <p className="description">{description}</p>
+              <div className="price">
+                <h4 className="oldPrice">$229.99</h4>
+                <h4 className="newPrice">$ {price}.00</h4>
+              </div>
+              <AddSection />
+              <hr />
+              <p>
+                <BiSupport /> Support Avaiable 24/7 For You
+              </p>
+              <p>
+                <FaShippingFast /> Free Shipping On Orders $50+
+              </p>
+              <p>You Save 20$</p>
             </div>
-            <AddSection />
-            <hr />
-            <p>
-              <BiSupport /> Support Avaiable 24/7 For You
-            </p>
-            <p>
-              <FaShippingFast /> Free Shipping On Orders $50+
-            </p>
-            <p>You Save 20$</p>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
     </Wrapper>
   );
 };

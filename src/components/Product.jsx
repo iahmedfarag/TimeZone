@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { BsHeart } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { getSingleProduct } from "../features/productsSlice.jsx";
+import { useDispatch, useSelector } from "react-redux";
 
-const Product = ({ image, title, price }) => {
+const Product = ({ image, title, price, id }) => {
   return (
     <Wrapper>
       <div className="img">
@@ -13,7 +15,7 @@ const Product = ({ image, title, price }) => {
           <BsHeart />
         </button>
       </div>
-      <Link to={`/product-details/1`}>{title}</Link>
+      <Link to={`/product-details/${id}`}>{title}</Link>
       <h4>{price}</h4>
     </Wrapper>
   );
@@ -30,6 +32,8 @@ const Wrapper = styled.article`
     overflow: hidden;
     img {
       width: 100%;
+      height: 400px;
+      object-fit: cover;
     }
     .addToCart {
       padding: 10px;

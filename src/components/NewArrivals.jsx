@@ -3,6 +3,7 @@ import product03 from "../assets/images/product03.png";
 import product04 from "../assets/images/product04.png";
 import product05 from "../assets/images/product05.png";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 const NewArrivals = () => {
   return (
     <Wrapper>
@@ -11,17 +12,23 @@ const NewArrivals = () => {
         <div className="wrapper">
           <article>
             <img src={product03} alt="product" />
-            <h3>Thermo Ball Etip Gloves</h3>
+            <h3>
+              <Link to={"/product-details/1"}>Thermo Ball Etip Gloves</Link>
+            </h3>{" "}
             <h4>$ 45,743</h4>
           </article>
           <article>
             <img src={product04} alt="product" />
-            <h3>Thermo Ball Etip Gloves</h3>
+            <h3>
+              <Link to={"/product-details/1"}>Thermo Ball Etip Gloves</Link>
+            </h3>
             <h4>$ 45,743</h4>
           </article>
           <article>
             <img src={product05} alt="product" />
-            <h3>Thermo Ball Etip Gloves</h3>
+            <h3>
+              <Link to={"/product-details/1"}>Thermo Ball Etip Gloves</Link>
+            </h3>
             <h4>$ 45,743</h4>
           </article>
         </div>

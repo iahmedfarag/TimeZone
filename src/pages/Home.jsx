@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import product1 from "../assets/images/product18.png";
 import product2 from "../assets/images/product19.png";
 
@@ -10,7 +10,13 @@ import {
   Video,
   WatchOfChoice,
 } from "../components";
+import { getMenWatches } from "../features/productsSlice.jsx";
+import { useDispatch, useSelector } from "react-redux";
 const Home = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getMenWatches());
+  }, []);
   return (
     <>
       <Hero />

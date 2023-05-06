@@ -5,7 +5,7 @@ import product3 from "../assets/images/product12.png";
 import styled from "styled-components";
 import Slider from "react-slick";
 
-const ProductImages = () => {
+const ProductImages = ({ images }) => {
   const settings = {
     dots: true,
     infinite: true,
@@ -17,10 +17,9 @@ const ProductImages = () => {
   return (
     <Wrapper className="images">
       <Slider {...settings}>
-        <img src={product1} alt="" />
-        <img src={product2} alt="" />
-        <img src={product1} alt="" />
-        <img src={product3} alt="" />
+        {images?.map((img, index) => {
+          return <img src={img} key={index} />;
+        })}
       </Slider>
     </Wrapper>
   );
@@ -30,6 +29,8 @@ const Wrapper = styled.div`
   img {
     width: 100%;
     height: 100%;
+    object-fit: cover;
+    height: 500px;
     object-fit: cover;
   }
 `;

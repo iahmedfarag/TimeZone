@@ -1,13 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Product, Header } from "../components";
-import product1 from "../assets/images/product10.png";
-import product2 from "../assets/images/product11.png";
-import product3 from "../assets/images/product12.png";
-import product4 from "../assets/images/product13.png";
-import product5 from "../assets/images/product14.png";
-import product6 from "../assets/images/product15.png";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { getMenWatches, sort, getBrands } from "../features/productsSlice.jsx";
 const Shop = () => {
+  const { isLoading, isError, all_products, filtered_products, brands } =
+    useSelector((store) => store.products);
+  const dispatch = useDispatch();
+  const [active, setActive] = useState(0);
+
+  const sortProducts = (name, value) => {
+    dispatch(sort({ type: name, sort: value }));
+  };
+
+  useEffect(() => {
+    dispatch(getMenWatches());
+  }, []);
+
+  useEffect(() => {
+    dispatch(sort({ type: "time", sort: "newest" }));
+    dispatch(getBrands());
+  }, [all_products]);
+
   return (
     <Wrapper>
       <Header title={"Watch Shop"} />
@@ -15,55 +29,83 @@ const Shop = () => {
         <div className="container">
           <header>
             <div className="control">
-              <button className="active">Newest Arrivals</button>
-              <button>Price High To Low</button>
-              <button>Most Popular</button>
+              <button
+                className={active === 0 ? "active" : ""}
+                onClick={() => {
+                  setActive(0);
+                  sortProducts("time", "newest");
+                }}
+              >
+                Newest Arrivals
+              </button>
+              <button
+                className={active === 1 ? "active" : ""}
+                onClick={() => {
+                  setActive(1);
+                  sortProducts("price", "highest-price");
+                }}
+              >
+                Price High To Low
+              </button>
+              <button
+                className={active === 2 ? "active" : ""}
+                onClick={() => {
+                  setActive(2);
+                  sortProducts("price", "lowest-price");
+                }}
+              >
+                Price Low To High
+              </button>
             </div>
-            <select name="" id="">
-              <option value="06 Per Page">06 Per Page</option>
-              <option value="12 Per Page">12 Per Page</option>
-              <option value="18 Per Page">18 Per Page</option>
+
+            <select
+              name=""
+              id=""
+              onChange={(e) => sortProducts("brand", e.target.value)}
+            >
+              <option value="All">All</option>
+              {brands?.map((brand, index) => {
+                return (
+                  <option value={brand} key={index}>
+                    {brand}
+                  </option>
+                );
+              })}
             </select>
           </header>
-          <div className="products">
-            <div className="wrapper">
-              <Product
-                image={product1}
-                title={"Thermo Ball Etip Gloves"}
-                price={"$ 45,743"}
-              />
-              <Product
-                image={product2}
-                title={"Thermo Ball Etip Gloves"}
-                price={"$ 45,743"}
-              />
-              <Product
-                image={product3}
-                title={"Thermo Ball Etip Gloves"}
-                price={"$ 45,743"}
-              />
-              <Product
-                image={product4}
-                title={"Thermo Ball Etip Gloves"}
-                price={"$ 45,743"}
-              />
-              <Product
-                image={product5}
-                title={"Thermo Ball Etip Gloves"}
-                price={"$ 45,743"}
-              />
-              <Product
-                image={product6}
-                title={"Thermo Ball Etip Gloves"}
-                price={"$ 45,743"}
-              />
+          {isLoading ? (
+            <h1>Loading...</h1>
+          ) : (
+            <div className="products">
+              <div className="wrapper">
+                {filtered_products?.map((product) => {
+                  const {
+                    id,
+                    title,
+                    description,
+                    price,
+                    discountPercentage,
+                    thumbnail,
+                  } = product;
+                  return (
+                    <Product
+                      key={id}
+                      image={thumbnail}
+                      title={title}
+                      price={`$ ${price}.00`}
+                      id={id}
+                    />
+                  );
+                })}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </section>
     </Wrapper>
   );
 };
+
 const Wrapper = styled.main`
   section {
     padding: 200px 0;
