@@ -2,36 +2,54 @@ import React from "react";
 import ShopNowBtn from "./ShopNowBtn.jsx";
 import styled from "styled-components";
 import { FaShippingFast } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
 const CartTotals = () => {
+  const { totalItems, totalAmount, tax, subtotal } = useSelector(
+    (store) => store.cart
+  );
   return (
     <Wrapper>
       <div className="container">
         <div className="notes">
-          <p>
-            Your Order Cost More Than <span>50$</span>!
-          </p>
-          <h4>
-            <span>Congrats</span> You Are Eligible Fore Free Shipping{" "}
-            <FaShippingFast />
-          </h4>
+          {totalAmount > 50 ? (
+            <>
+              <p>
+                Your Order Cost More Than <span>50$</span>!
+              </p>
+              <h4>
+                <span>Congrats</span> You Are Eligible Fore Free Shipping{" "}
+                <FaShippingFast />
+              </h4>
+            </>
+          ) : (
+            <>
+              <p>
+                If Your Total Amount Equal Or More Than <span>50$</span>!
+              </p>
+              <h4>
+                You Will Get Free <span>Shipping</span>
+                <FaShippingFast />
+              </h4>
+            </>
+          )}
         </div>
         <div className="checkout">
           <div>
+            <h4>Total Items:</h4>
+            <p>{totalItems} items</p>
+          </div>
+          <div>
             <h4>Subtotal:</h4>
-            <p>$875.00</p>
+            <p>${subtotal}</p>
           </div>
           <div>
             <h4>Sales Taxes:</h4>
-            <p>$65.00</p>
-          </div>
-          <div>
-            <h4>Delivery Fee:</h4>
-            <p>$00.00</p>
+            <p>${tax}.00</p>
           </div>
           <div>
             <h4>Grand Total:</h4>
-            <p className="total">$987.00</p>
+            <p className="total">${totalAmount}.00</p>
           </div>
           <br />
           <ShopNowBtn text={"Checkout"} padding={"15px 50px"} />

@@ -14,8 +14,9 @@ import { getMenWatches } from "../features/productsSlice.jsx";
 import { useDispatch, useSelector } from "react-redux";
 const Home = () => {
   const dispatch = useDispatch();
+
   useEffect(() => {
-    dispatch(getMenWatches());
+    window.scrollTo(0, 0);
   }, []);
   return (
     <>

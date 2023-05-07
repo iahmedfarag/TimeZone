@@ -1,31 +1,71 @@
 import React from "react";
-import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
+import { AiOutlineMinus, AiOutlinePlus, AiOutlineDelete } from "react-icons/ai";
 import styled from "styled-components";
+import { removeItem, toggleAmount } from "../features/cartSlice.jsx";
+import { useDispatch } from "react-redux";
 
-const CartProduct = ({ image }) => {
+const CartProduct = ({ id, image, title, price, amount }) => {
+  const dispatch = useDispatch();
+  const toggle = (type, id, value) => {
+    dispatch(toggleAmount({ type, id, value }));
+  };
+  const remove = (id) => {
+    dispatch(removeItem(id));
+  };
+
   return (
-    <Wrapper className="product">
-      <div className="content">
-        <img src={image} alt="" />
-        <h4>Minimalistic shop for multipurpose use</h4>
-      </div>
-
-      <h4 className="price">$360.00</h4>
-
-      <div className="quantity">
-        <input type="text" placeholder="1" />
-        <div className="control">
-          <button className="increase">
-            <AiOutlinePlus />
-          </button>
-          <button className="decrease">
-            <AiOutlineMinus />
-          </button>
+    <>
+      <Wrapper className="product">
+        <div className="content">
+          <img src={image} alt="" />
+          <h4>{title}</h4>
         </div>
-      </div>
 
-      <p className="total">$720.00</p>
-    </Wrapper>
+        <h4 className="price">${price}</h4>
+
+        <div className="quantity">
+          <input
+            type="number"
+            placeholder={amount}
+            value={amount}
+            onChange={(e) => {
+              toggle("change", id, e.target.value);
+            }}
+            disabled
+          />
+          <div className="control">
+            <button
+              className="increase"
+              onClick={() => {
+                toggle("inc", id, amount);
+              }}
+            >
+              <AiOutlinePlus />
+            </button>
+            <button
+              className="decrease"
+              onClick={() => {
+                toggle("dec", id, amount);
+              }}
+            >
+              <AiOutlineMinus />
+            </button>
+          </div>
+        </div>
+
+        <p className="total">${price * amount}</p>
+
+        <button
+          className="remove"
+          onClick={() => {
+            remove(id);
+          }}
+        >
+          <AiOutlineDelete />
+        </button>
+      </Wrapper>
+      <hr />
+    </>
   );
 };
 const Wrapper = styled.article`
@@ -46,13 +86,13 @@ const Wrapper = styled.article`
   }
 
   h4.price {
-    width: calc(40% / 3);
+    width: calc(35% / 3);
     display: flex;
     align-items: center;
   }
 
   .quantity {
-    width: calc(40% / 3);
+    width: calc(35% / 3);
     display: flex;
     align-items: center;
     input {
@@ -77,16 +117,28 @@ const Wrapper = styled.article`
   }
 
   .total {
-    width: calc(40% / 3);
+    width: calc(35% / 3);
     display: flex;
     align-items: center;
   }
 
+  .remove {
+    color: #790202;
+    font-size: 20px;
+    &:hover {
+      color: #bf0505;
+    }
+  }
   @media (max-width: 992px) {
+    padding: 5px 0;
+    margin: 0;
     .content {
       width: 50%;
+      /* flex-direction: column;
+      align-items: flex-start; */
       img {
         width: 150px;
+        height: 100px;
         object-fit: cover;
       }
       h4 {
@@ -95,15 +147,15 @@ const Wrapper = styled.article`
       }
     }
     h4.price {
-      width: calc(50% / 3);
+      width: calc(45% / 3);
     }
 
     .quantity {
-      width: calc(50% / 3);
+      width: calc(45% / 3);
     }
 
     .total {
-      width: calc(50% / 3);
+      width: calc(45% / 3);
     }
   }
 
@@ -114,15 +166,15 @@ const Wrapper = styled.article`
       align-items: flex-start;
     }
     h4.price {
-      width: calc(60% / 3);
+      width: calc(55% / 3);
     }
 
     .quantity {
-      width: calc(60% / 3);
+      width: calc(55% / 3);
     }
 
     .total {
-      width: calc(60% / 3);
+      width: calc(55% / 3);
     }
   }
 
@@ -140,11 +192,11 @@ const Wrapper = styled.article`
       }
     }
     h4.price {
-      width: calc(70% / 3);
+      width: calc(65% / 3);
     }
 
     .quantity {
-      width: calc(70% / 3);
+      width: calc(65% / 3);
       input {
         width: 30px;
         height: 37.79px;
@@ -163,7 +215,7 @@ const Wrapper = styled.article`
     }
 
     .total {
-      width: calc(70% / 3);
+      width: calc(65% / 3);
     }
   }
 `;

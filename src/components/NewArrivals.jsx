@@ -13,21 +13,21 @@ const NewArrivals = () => {
           <article>
             <img src={product03} alt="product" />
             <h3>
-              <Link to={"/product-details/1"}>Thermo Ball Etip Gloves</Link>
-            </h3>{" "}
+              <Link to={"/product-details/61"}>Thermo Ball Etip Gloves</Link>
+            </h3>
             <h4>$ 45,743</h4>
           </article>
           <article>
             <img src={product04} alt="product" />
             <h3>
-              <Link to={"/product-details/1"}>Thermo Ball Etip Gloves</Link>
+              <Link to={"/product-details/62"}>Thermo Ball Etip Gloves</Link>
             </h3>
             <h4>$ 45,743</h4>
           </article>
           <article>
             <img src={product05} alt="product" />
             <h3>
-              <Link to={"/product-details/1"}>Thermo Ball Etip Gloves</Link>
+              <Link to={"/product-details/63"}>Thermo Ball Etip Gloves</Link>
             </h3>
             <h4>$ 45,743</h4>
           </article>
@@ -65,6 +65,10 @@ const Wrapper = styled.section`
           margin: 0;
           margin-top: 20px;
           margin-bottom: 10px;
+          transition: var(--main-trans);
+          &:hover {
+            color: var(--main-color);
+          }
         }
         h4 {
           color: var(--main-color);

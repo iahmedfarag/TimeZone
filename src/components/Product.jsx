@@ -1,22 +1,33 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import { BsHeart } from "react-icons/bs";
-import { Link, useParams } from "react-router-dom";
-import { getSingleProduct } from "../features/productsSlice.jsx";
-import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { addToCart } from "../features/cartSlice.jsx";
+import { useDispatch } from "react-redux";
 
 const Product = ({ image, title, price, id }) => {
+  const dispatch = useDispatch();
+  const AddToCart = (id, image, title, price, amount = 1) => {
+    dispatch(addToCart({ id, image, title, price, amount }));
+  };
   return (
     <Wrapper>
       <div className="img">
         <img src={image} alt="" />
-        <button className="addToCart">Add to cart</button>
+        <button
+          className="addToCart"
+          onClick={() => {
+            AddToCart(id, image, title, price);
+          }}
+        >
+          Add to cart
+        </button>
         <button className="addToWhish">
           <BsHeart />
         </button>
       </div>
       <Link to={`/product-details/${id}`}>{title}</Link>
-      <h4>{price}</h4>
+      <h4>$ {price}</h4>
     </Wrapper>
   );
 };

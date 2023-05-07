@@ -27,6 +27,9 @@ const ProductDetails = () => {
   useEffect(() => {
     dispatch(getSingleProduct(params.id));
   }, []);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <Wrapper>
       <Header title={"Product Details"} />

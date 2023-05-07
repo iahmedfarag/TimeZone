@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FormCard, FormTemplate, Header } from "./../components";
 import styled from "styled-components";
 
 const Register = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <Wrapper>
       <Header title={"Signup"} />

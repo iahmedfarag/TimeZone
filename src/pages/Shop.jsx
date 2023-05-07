@@ -22,6 +22,9 @@ const Shop = () => {
     dispatch(getBrands());
   }, [all_products]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <Wrapper>
       <Header title={"Watch Shop"} />
@@ -92,7 +95,7 @@ const Shop = () => {
                       key={id}
                       image={thumbnail}
                       title={title}
-                      price={`$ ${price}.00`}
+                      price={price}
                       id={id}
                     />
                   );
