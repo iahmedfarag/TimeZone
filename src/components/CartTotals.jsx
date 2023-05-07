@@ -8,6 +8,7 @@ const CartTotals = () => {
   const { totalItems, totalAmount, tax, subtotal } = useSelector(
     (store) => store.cart
   );
+  const { user } = useSelector((store) => store.user);
   return (
     <Wrapper>
       <div className="container">
@@ -52,7 +53,10 @@ const CartTotals = () => {
             <p className="total">${totalAmount}.00</p>
           </div>
           <br />
-          <ShopNowBtn text={"Checkout"} padding={"15px 50px"} />
+          <ShopNowBtn
+            text={user ? "Checkout" : "Login"}
+            padding={"15px 50px"}
+          />
         </div>
       </div>
     </Wrapper>

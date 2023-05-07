@@ -19,6 +19,15 @@ const Wrapper = styled.nav`
   height: 100px;
   padding: 0 150px;
 
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: calc(100% - 300px);
+  z-index: 33;
+
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+    rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+
   /* flex */
   display: flex;
   align-items: center;
@@ -43,6 +52,7 @@ const Wrapper = styled.nav`
   }
   @media (max-width: 1600px) {
     padding: 0 20px;
+    width: calc(100% - 40px);
   }
   @media (max-width: 992px) {
     display: none;

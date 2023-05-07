@@ -20,6 +20,7 @@ import FormCard from "./FormCard";
 import FormTemplate from "./FormTemplate";
 import ContactForm from "./ContactForm";
 import ContactMap from "./ContactMap";
+import Loading from "./Loading";
 
 export {
   Features,
@@ -44,4 +45,5 @@ export {
   FormTemplate,
   ContactForm,
   ContactMap,
+  Loading,
 };

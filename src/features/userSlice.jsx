@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const getLocalStorage = () => {
   let user = localStorage.getItem("user");
@@ -21,7 +22,6 @@ export const registerUser = createAsyncThunk(
   async (user, thunkAPI) => {
     try {
       const res = await axios.post(`${url}/auth/register`, user);
-      console.log(res);
       return res.data;
     } catch (error) {
       console.log(error);
@@ -29,12 +29,12 @@ export const registerUser = createAsyncThunk(
     }
   }
 );
+
 export const loginUser = createAsyncThunk(
   "user/loginUser",
   async (user, thunkAPI) => {
     try {
       const res = await axios.post(`${url}/auth/login`, user);
-      console.log(res);
       return res.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data.msg);
@@ -46,9 +46,10 @@ export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    logoutUser: (state) => {
+    logoutUser: (state, _) => {
       state.user = null;
       localStorage.removeItem("user");
+      toast.success(`Bye Sir`);
     },
   },
   extraReducers: (builder) => {
@@ -61,9 +62,11 @@ export const userSlice = createSlice({
         state.isLoading = false;
         state.user = user;
         localStorage.setItem("user", JSON.stringify(user.token));
+        toast.success(`Registered Succesfully ${user.name}!`);
       })
       .addCase(registerUser.rejected, (state, { payload }) => {
         state.isLoading = false;
+        toast.error(payload);
       })
       .addCase(loginUser.pending, (state) => {
         state.isLoading = true;
@@ -73,9 +76,11 @@ export const userSlice = createSlice({
         state.isLoading = false;
         state.user = user;
         localStorage.setItem("user", JSON.stringify(user.token));
+        toast.success(`Welcome Back ${user.name}!`);
       })
       .addCase(loginUser.rejected, (state, { payload }) => {
         state.isLoading = false;
+        toast.error(payload);
       });
   },
 });

@@ -9,6 +9,7 @@ import {
   Cart,
   About,
   Contact,
+  WhishList,
 } from "./pages";
 
 function App() {

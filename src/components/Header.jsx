@@ -9,6 +9,8 @@ const Header = ({ title }) => {
   );
 };
 const Wrapper = styled.header`
+  margin-top: 100px;
+
   height: 500px;
   display: flex;
   align-items: center;

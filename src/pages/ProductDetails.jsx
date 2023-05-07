@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { AddSection, Header, ProductImages } from "../components";
+import { AddSection, Header, Loading, ProductImages } from "../components";
 import styled from "styled-components";
 import { FaShippingFast } from "react-icons/fa";
 import { BiSupport } from "react-icons/bi";
@@ -34,7 +34,7 @@ const ProductDetails = () => {
     <Wrapper>
       <Header title={"Product Details"} />
       {isLoading ? (
-        <h1>Loading...</h1>
+        <Loading />
       ) : (
         <section>
           <div className="container">
@@ -53,7 +53,12 @@ const ProductDetails = () => {
                 <h4 className="oldPrice">$229.99</h4>
                 <h4 className="newPrice">$ {price}.00</h4>
               </div>
-              <AddSection />
+              <AddSection
+                id={id}
+                image={thumbnail}
+                title={title}
+                price={price}
+              />
               <hr />
               <p>
                 <BiSupport /> Support Avaiable 24/7 For You
@@ -71,6 +76,7 @@ const ProductDetails = () => {
 };
 const Wrapper = styled.main`
   section {
+    position: relative;
     padding: 200px;
     .container {
       display: flex;

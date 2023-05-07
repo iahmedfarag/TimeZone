@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Product, Header } from "../components";
+import { Product, Header, Loading } from "../components";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { getMenWatches, sort, getBrands } from "../features/productsSlice.jsx";
@@ -77,7 +77,7 @@ const Shop = () => {
             </select>
           </header>
           {isLoading ? (
-            <h1>Loading...</h1>
+            <Loading />
           ) : (
             <div className="products">
               <div className="wrapper">

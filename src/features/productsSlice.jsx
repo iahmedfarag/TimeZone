@@ -78,6 +78,7 @@ export const productsSlice = createSlice({
       state.brands = [...unqBrands];
     },
   },
+
   extraReducers: (builder) => {
     builder
       // ! getMenWatches

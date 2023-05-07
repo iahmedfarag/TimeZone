@@ -1,28 +1,52 @@
-import React from "react";
+import React, { useState } from "react";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
-import ShopNowBtn from "./ShopNowBtn.jsx";
 import styled from "styled-components";
+import { addToCart } from "../features/cartSlice.jsx";
+import { useDispatch, useSelector } from "react-redux";
 
-const AddSection = () => {
+const AddSection = ({ id, image, title, price }) => {
+  const dispatch = useDispatch();
+  const [prductAmount, setProductAmount] = useState(1);
+  const AddToCart = (id, image, title, price, amount = 1) => {
+    dispatch(addToCart({ id, image, title, price, amount }));
+  };
   return (
     <Wrapper className="addSection">
       <div className="control">
-        <button className="decrease">
+        <button
+          className="decrease"
+          onClick={() => {
+            if (prductAmount === 1) {
+              return;
+            }
+            setProductAmount(prductAmount - 1);
+          }}
+        >
           <AiOutlineMinus />
         </button>
-        <h4>1</h4>
-        <button className="increase">
+        <h4>{prductAmount}</h4>
+        <button
+          className="increase"
+          onClick={() => {
+            setProductAmount(prductAmount + 1);
+          }}
+        >
           <AiOutlinePlus />
         </button>
       </div>
-      <ShopNowBtn
-        text={"Add To Cart"}
-        padding={"10px 20px"}
-        background={"var(--main-color)"}
-      />
+      <button
+        className="animate__animated animate__fadeInLeft animate__slow addBtn"
+        onClick={() => {
+          AddToCart(id, image, title, price, prductAmount);
+        }}
+      >
+        <p>Add To Cart</p>
+        <span></span>
+      </button>
     </Wrapper>
   );
 };
+
 const Wrapper = styled.div`
   display: flex;
   gap: 30px;
@@ -46,13 +70,36 @@ const Wrapper = styled.div`
     h4 {
       margin: 0;
       font-size: 20px;
-      padding: 5px 10px;
+      padding: 5px;
+      width: 15px;
+      text-align: center;
     }
   }
   .addBtn {
     background-color: var(--main-color);
     color: #fff;
     padding: 0 15px;
+    position: relative;
+    overflow: hidden;
+    p {
+      display: inline;
+      position: relative;
+      z-index: 2;
+    }
+
+    span {
+      position: absolute;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      background: #333;
+      left: -100%;
+      top: 0;
+      transition: 0.3s;
+    }
+    &:hover span {
+      left: 0;
+    }
   }
 `;
 export default AddSection;

@@ -55,6 +55,16 @@ const Wrapper = styled.nav`
   height: 70px;
   padding: 0 20px;
   display: none;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: calc(100% - 40px);
+  z-index: 33;
+
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+    rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+
   header {
     height: 100%;
     display: flex;

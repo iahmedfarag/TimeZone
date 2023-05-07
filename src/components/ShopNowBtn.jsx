@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const ShopNowBtn = ({ text, padding, background, color }) => {
@@ -11,12 +12,18 @@ const ShopNowBtn = ({ text, padding, background, color }) => {
         color: `${color ? color : "#fff"}`,
       }}
     >
-      <p>{text}</p>
-      <span
-        style={{
-          background: `${background ? "#333" : "var(--main-color)"}`,
-        }}
-      ></span>
+      <Link
+        to={
+          text === "Checkout" ? "/cart" : text === "Login" ? "/login" : "/shop"
+        }
+      >
+        <p>{text}</p>
+        <span
+          style={{
+            background: `${background ? "#333" : "var(--main-color)"}`,
+          }}
+        ></span>
+      </Link>
     </Wrapper>
   );
 };

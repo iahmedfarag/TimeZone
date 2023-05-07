@@ -26,6 +26,7 @@ const Hero = () => {
 };
 
 const Wrapper = styled.main`
+  margin-top: 100px;
   background-color: #eee;
   height: 960px;
 

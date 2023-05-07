@@ -1,15 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { BsHeart } from "react-icons/bs";
+import { AiFillHeart } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { addToCart } from "../features/cartSlice.jsx";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-const Product = ({ image, title, price, id }) => {
+const Product = ({ id, image, title, price }) => {
   const dispatch = useDispatch();
+
   const AddToCart = (id, image, title, price, amount = 1) => {
     dispatch(addToCart({ id, image, title, price, amount }));
   };
+
   return (
     <Wrapper>
       <div className="img">
@@ -21,9 +24,6 @@ const Product = ({ image, title, price, id }) => {
           }}
         >
           Add to cart
-        </button>
-        <button className="addToWhish">
-          <BsHeart />
         </button>
       </div>
       <Link to={`/product-details/${id}`}>{title}</Link>
@@ -64,6 +64,7 @@ const Wrapper = styled.article`
       right: 10px;
       transition: var(--main-trans);
       opacity: 0;
+      color: var(--main-color);
     }
   }
   a {

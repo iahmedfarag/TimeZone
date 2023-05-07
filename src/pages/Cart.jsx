@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { CartProduct, CartTotals, Header } from "../components";
+import { CartProduct, CartTotals, Header, ShopNowBtn } from "../components";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { updateTotals } from "../features/cartSlice.jsx";
@@ -35,19 +35,23 @@ const Cart = () => {
             {cart_products.length > 0 ? (
               cart_products.map((product, index) => {
                 const { id, image, title, price, amount } = product;
+                const priceNumber = parseInt(price);
                 return (
                   <CartProduct
                     key={id}
                     id={id}
                     image={image}
                     title={title}
-                    price={price}
+                    price={priceNumber}
                     amount={amount}
                   />
                 );
               })
             ) : (
-              <h1>your cart is empty...</h1>
+              <>
+                <h2>your cart is empty...</h2>
+                <ShopNowBtn text={"SHOP NOW"} />
+              </>
             )}
           </div>
 
