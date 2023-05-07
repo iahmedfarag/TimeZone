@@ -105,5 +105,6 @@ export const productsSlice = createSlice({
       });
   },
 });
+
 export const { sort, getBrands } = productsSlice.actions;
 export default productsSlice.reducer;

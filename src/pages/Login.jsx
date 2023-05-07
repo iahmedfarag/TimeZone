@@ -1,12 +1,48 @@
-import React, { useEffect } from "react";
-import { FormCard, FormTemplate, Header } from "./../components";
+import React, { useEffect, useState } from "react";
+import { FormCard, Header } from "./../components";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { registerUser, loginUser } from "../features/userSlice.jsx";
+
+const initialState = {
+  email: "",
+  password: "",
+  isMember: true,
+};
 
 const Login = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [values, setValues] = useState(initialState);
+  const { user, isLoading } = useSelector((store) => store.user);
+
+  const handleChange = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setValues({ ...values, [name]: value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const { email, password } = values;
+    if (!email || !password) {
+      console.log("fill inputs");
+      return;
+    }
+    dispatch(loginUser({ email, password }));
+  };
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  }, [user]);
+
   return (
     <Wrapper>
       <Header title={"Signin"} />
@@ -19,16 +55,30 @@ const Login = () => {
         everyday, and a good example of this is the`}
             button={"Create An Account"}
           />
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="wrapper">
               <h2>
                 Welcome Sir! <br /> Signin Now
               </h2>
 
-              <input type="email" placeholder="Email" />
-              <input type="password" placeholder="Password" />
+              <input
+                type="email"
+                placeholder="Email"
+                name="email"
+                value={values.email}
+                onChange={handleChange}
+              />
+              <input
+                type="password"
+                placeholder="Password"
+                name="password"
+                value={values.password}
+                onChange={handleChange}
+              />
 
-              <button>Signin</button>
+              <button type="submit" disabled={isLoading}>
+                {isLoading ? "Loading..." : "Signin"}
+              </button>
 
               <Link to={"/register"}>forget password?</Link>
             </div>
@@ -63,8 +113,13 @@ const Wrapper = styled.main`
             outline: 0;
             border-bottom: 1px solid gray;
             padding: 10px;
+            transition: var(--main-trans);
+
             &:not(:last-child) {
               margin-bottom: 10px;
+            }
+            &:focus {
+              border-bottom: 1px solid var(--main-color);
             }
           }
           button {

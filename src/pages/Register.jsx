@@ -1,11 +1,45 @@
-import React, { useEffect } from "react";
-import { FormCard, FormTemplate, Header } from "./../components";
+import React, { useEffect, useState } from "react";
+import { FormCard, Header } from "./../components";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { registerUser, loginUser } from "../features/userSlice.jsx";
+import { useNavigate } from "react-router-dom";
+
+const initialState = {
+  name: "",
+  email: "",
+  password: "",
+};
 
 const Register = () => {
+  const dispatch = useDispatch();
+  const [values, setValues] = useState(initialState);
+  const { user, isLoading } = useSelector((store) => store.user);
+  const navigate = useNavigate();
+  const handleChange = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setValues({ ...values, [name]: value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const { name, email, password, isMember } = values;
+    if (!email || !password || !name) {
+      console.log("fill inputs");
+      return;
+    }
+    dispatch(registerUser({ name, email, password }));
+  };
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  }, [user]);
   return (
     <Wrapper>
       <Header title={"Signup"} />
@@ -18,17 +52,40 @@ const Register = () => {
         everyday, and a good example of this is the`}
             button={"Signin"}
           />
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="wrapper">
               <h2>
-                Welcome Back ! <br /> Please Sign in now
+                Welcome Back ! <br /> Please Signup now
               </h2>
 
-              <input type="text" placeholder="Name" />
-              <input type="email" placeholder="Email" />
-              <input type="password" placeholder="Password" />
+              <input
+                type="text"
+                placeholder="Name"
+                name="name"
+                id="name"
+                onChange={handleChange}
+                value={values.name}
+              />
+              <input
+                type="email"
+                placeholder="Email"
+                name="email"
+                id="email"
+                onChange={handleChange}
+                value={values.email}
+              />
+              <input
+                type="password"
+                placeholder="Password"
+                name="password"
+                id="password"
+                onChange={handleChange}
+                value={values.password}
+              />
 
-              <button>Signup</button>
+              <button disabled={isLoading}>
+                {isLoading ? "Loading..." : "Signup"}
+              </button>
             </div>
           </form>
         </div>
@@ -61,8 +118,12 @@ const Wrapper = styled.main`
             outline: 0;
             border-bottom: 1px solid gray;
             padding: 10px;
+            transition: var(--main-trans);
             &:not(:last-child) {
               margin-bottom: 10px;
+            }
+            &:focus {
+              border-bottom: 1px solid var(--main-color);
             }
           }
           button {

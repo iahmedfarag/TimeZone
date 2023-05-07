@@ -1,10 +1,19 @@
 import React from "react";
 import { AiOutlineSearch, AiOutlineShoppingCart } from "react-icons/ai";
 import { FiUserPlus, FiUserMinus } from "react-icons/fi";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { logoutUser } from "../features/userSlice.jsx";
 
 const Icons = () => {
+  const { user } = useSelector((store) => store.user);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const logout = () => {
+    dispatch(logoutUser());
+    navigate("/");
+  };
   return (
     <Wrapper>
       <button className="search-btn">
@@ -13,18 +22,25 @@ const Icons = () => {
       <Link to={"/cart"} className="cart-btn">
         <AiOutlineShoppingCart />
       </Link>
-      <Link to={"/login"} className="loginBtn">
-        Login
-        <FiUserPlus />
-      </Link>
-      <Link to={"/register"} className="registerBtn">
-        Register
-        <FiUserPlus />
-      </Link>
-      {/* <button className="logoutBtn">
-        Logout
-        <FiUserMinus />
-      </button> */}
+      {user ? (
+        <>
+          <button className="logoutBtn" onClick={logout}>
+            Logout
+            <FiUserMinus />
+          </button>
+        </>
+      ) : (
+        <>
+          <Link to={"/login"} className="loginBtn">
+            Login
+            <FiUserPlus />
+          </Link>
+          <Link to={"/register"} className="registerBtn">
+            Register
+            <FiUserPlus />
+          </Link>
+        </>
+      )}
     </Wrapper>
   );
 };
