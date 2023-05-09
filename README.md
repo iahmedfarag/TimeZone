@@ -3,12 +3,14 @@ Watches E-Commerce
 
 demo: https://timezonee.netlify.app/
 
-you can register, login
+website features:
 
-you can filter and sort products (price, company)
+Login and Registration: You can create an account or log in to an existing account using your email address and password.
 
-add products to your cart edit your cart (toggle amount, remove item)
+Product filtering: You can filter products by brand, style, price, and more.
 
-must be logged in to can click on checkout 
+Adding products to your cart: You can add products to your cart by clicking the "Add to Cart" button.
 
-after you log out your cart will be removed 
+Checkout: You can checkout by clicking the "Checkout" button. You will need to enter your billing and shipping information, and you will also have the option to create an account.
+
+We hope you enjoy shopping on our website!
