@@ -14,7 +14,7 @@ Welcome to TimeZone Watches, an e-commerce platform dedicated to bringing you th
 
 ## Technologies Used
 
-- **Frontend**: HTML, CSS, React.js, Redux Toolkit, react-icons, react-slick, styled-components, pure CSS.
+- **Frontend**: HTML, CSS, React.js, Redux Toolkit, react-icons, react-slick, styled-components.
 - **Backend**: Axios for API requests.
 - **Authentication**: Register and login functionality for user accounts.
 
